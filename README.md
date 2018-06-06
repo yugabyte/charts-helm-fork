@@ -103,3 +103,4 @@ This project is still under active development, so you might run into [issues](h
 ## Happy Helming in China
 
 If you are in China, there are some problems to use upstream Helm Charts directly (e.g. images hosted on `gcr.io`, `quay.io`, and Charts hosted on `googleapis.com` etc), you can use this mirror repo at https://github.com/cloudnativeapp/charts which automatically sync & replace unavailable image & repo URLs in every Chart.
+
