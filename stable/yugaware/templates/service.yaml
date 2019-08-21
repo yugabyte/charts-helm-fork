@@ -11,10 +11,12 @@ metadata:
     chart: {{ template "yugaware.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    {{- if .Values.yugaware.service.annotations }}
+  {{- if .Values.yugaware.service.annotations }}
   annotations:
-{{ toYaml .Values.yugaware.service.annotations | indent 4 }}
-{{- end }}
+    {{- range $key, $value := .Values.yugaware.service.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+  {{- end }}
 spec:
   clusterIP:
   ports:
