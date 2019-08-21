@@ -18,6 +18,7 @@ yugaware:
     enabled: true
     ip: ""
     type: "LoadBalancer"
+    annotations: {}
   health:
     username: ""
     password: ""
