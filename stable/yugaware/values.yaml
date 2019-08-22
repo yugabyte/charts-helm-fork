@@ -8,6 +8,13 @@ image:
   pullPolicy: IfNotPresent
   pullSecret: yugabyte-k8s-pull-secret
 
+  ## If defined, creates imagePullSecret using name defined in image.pullSecret
+  ## When empty, assumes imagePullSecret has been manually created in the namespace
+  ## Example:
+  ##    pullSecretCredential: ewoxICthdXRocyI6IHsKICxyzabcKfQ==
+  ##
+  pullSecretCredential:
+
 yugaware:
   replicas: 1
   storage: 100Gi
