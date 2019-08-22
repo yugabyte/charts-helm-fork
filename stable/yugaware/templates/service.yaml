@@ -185,7 +185,7 @@ spec:
             mountPath: /opt/swamper_targets/
             subPath: swamper_targets
         - name: nginx
-          image: nginx:latest
+          image: nginx:1.17.3
           ports:
           - containerPort: 80
           volumeMounts:
