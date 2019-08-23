@@ -13,7 +13,7 @@ image:
   ## Example:
   ##    pullSecretCredential: ewoxICthdXRocyI6IHsKICxyzabcKfQ==
   ##
-  pullSecretCredential:
+  pullSecretCredential: ""
 
 yugaware:
   replicas: 1
