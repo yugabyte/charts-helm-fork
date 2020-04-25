@@ -203,9 +203,10 @@ spec:
                   values:
                   - "{{ .label }}"
               topologyKey: kubernetes.io/hostname
-    {{- if ne $root.Release.Service "Tiller" }}
+    {{- if $root.Values.privileged.enabled }}
+      {{- if ne $root.Release.Service "Tiller" }}
       serviceAccountName: "{{ $root.Values.serviceAccount.Name }}-{{ $root.Release.Name }}"
-    {{ end }}
+      {{- end }}
       initContainers:
         - name: init-sysctl
           image: busybox
@@ -217,6 +218,7 @@ spec:
             sysctl -w kernel.core_pattern="/home/yugabyte/cores/core_%e.%p"
           securityContext:
             privileged: true
+    {{- end }}
       containers:
       - name: "{{ .label }}"
         image: "{{ $root.Values.Image.repository }}:{{ $root.Values.Image.tag }}"
@@ -392,6 +394,16 @@ spec:
 {{- end }}
 {{- end }}
 
+{{- if $root.Values.privileged.enabled }}
+# There are several bugs here.
+# - Only deployable by cluster-admin. This is not something devs or ci has.
+# - Even if going down this path, should be a rolebinding. As a cluster
+#   role binding, it means that only one instance in the entire cluster can
+#   be deployed.
+# To address this, I've added the privileged flag and defaulted it to off.
+# I think the proper solution is something else though so I've not tried to
+# refactor all this. It can still be enabled if desired, but it's a risky operation
+# and should default to off.
 {{- if ne $root.Release.Service "Tiller" }}
 ---
 apiVersion: v1
@@ -412,4 +424,5 @@ subjects:
   - kind: ServiceAccount
     name: {{ $root.Values.serviceAccount.Name }}-{{ $root.Release.Name }}
     namespace: {{ $root.Release.Namespace }}
+{{- end }}
 {{- end }}

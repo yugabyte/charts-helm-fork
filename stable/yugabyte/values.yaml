@@ -104,3 +104,6 @@ affinity: {}
 
 serviceAccount:
   Name: yugabyte-service-account
+
+privileged:
+  enabled: false
